@@ -16,7 +16,7 @@ type CheckedItemsState = {
     [key: string]: boolean;
 };
 
-const CheckboxList = ({ labels }: Props) => {
+const checkboxList = ({ labels }: Props) => {
     const [checkedItems, setCheckedItems] = useState<CheckedItemsState>(
         labels.reduce((acc, item) => ({ ...acc, [item]: false }), {})
     );
@@ -36,38 +36,46 @@ const CheckboxList = ({ labels }: Props) => {
     };
 
     return (
-        <Box sx={{ maxWidth: 300, ml: "6rem", paddingTop: "2rem" }}>
-            <FormControl component="fieldset" aria-labelledby="checkbox-list-label">
-                <FormLabel id="checkbox-list-label">Select book genre</FormLabel>
-                <FormGroup>
-                    {labels.map((label) => (
-                        <FormControlLabel
-                            key={label}
-                            control={
-                                <Checkbox
-                                    checked={checkedItems[label]}
-                                    onChange={handleChange}
-                                    name={label}
-                                    inputProps={{ "aria-label": label }}
-                                />
-                            }
-                            label={label}
-                        />
-                    ))}
-                </FormGroup>
-            </FormControl>
-            <Box>
+        <Box>
+            <Box sx={{
+                maxWidth: 300,
+                margin: "0 auto",
+                overflowY: "auto",
+                maxHeight: "calc(100vh - 100px)",
+                ml: "6rem",
+                paddingTop: "2rem",
+                paddingBottom: "4rem"
+            }}>
+                <FormControl component="fieldset" aria-labelledby="checkbox-list-label">
+                    <FormLabel id="checkbox-list-label">Select book genre</FormLabel>
+                    <FormGroup>
+                        {labels.map((label) => (
+                            <FormControlLabel
+                                key={label}
+                                control={
+                                    <Checkbox
+                                        checked={checkedItems[label]}
+                                        onChange={handleChange}
+                                        name={label}
+                                        inputProps={{ "aria-label": label }}
+                                    />
+                                }
+                                label={label}
+                            />
+                        ))}
+                    </FormGroup>
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={handleClearAll}
-                sx={{ marginTop: 2 }}
+                    sx={{ marginTop: 2 }}
                 >
                     Clear All
                 </Button>
+                </FormControl>
             </Box>
         </Box>
     );
 };
 
-export default CheckboxList;
+export default checkboxList;
