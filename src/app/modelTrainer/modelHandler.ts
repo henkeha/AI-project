@@ -15,10 +15,5 @@ export const trainPredictionModel = async (books: Book[], categories: string[]) 
 }
 
 export const getRecommendedBooks = async (inputCategories: string[]) => {
-
-    if(!model){
-        return [];
-    }
-    
     return await recommendBooks(inputCategories, allCategories, model, allBooks);
 }
