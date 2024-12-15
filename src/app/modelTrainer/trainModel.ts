@@ -1,7 +1,6 @@
 import { Book } from "../dataFetchers/getTrainingData";
 import * as tf from "@tensorflow/tfjs";
 
-
 export const trainModel = async (books: Book[], categories: string[]) => {
 
     const inputs = books.map(book =>
