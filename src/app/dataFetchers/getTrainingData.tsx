@@ -1,6 +1,6 @@
 import { getMaxAge } from "next/dist/server/image-optimizer"
 
-type Book = {
+export type Book = {
     kind: string,
     id: string,
     etag: string
@@ -26,9 +26,9 @@ type ResponseData = {
 const getTrainingData = async () => {
 
     const books = await getBooks()
-    const genres = extractGenres(books)
+    const categories = extractCategories(books)
 
-    return {books, genres};
+    return {books, categories};
 }
 
 const fetchData = async (url: string) => {
@@ -42,10 +42,10 @@ const fetchData = async (url: string) => {
 
 export default getTrainingData;
 
-function extractGenres(books: Book[]) {
+function extractCategories(books: Book[]) {
     const genreList = books
         .flatMap(book => book.volumeInfo.categories)
-        .filter(genre => !!genre)
+        .filter(category => !!category)
         .sort()
     const genreSet = new Set(genreList);
     return Array.from(genreSet.values());
@@ -54,8 +54,8 @@ function extractGenres(books: Book[]) {
 async function getBooks() {
     const apiLink = "https://www.googleapis.com/books/v1/volumes"
 
-    const genres = ["magi", "historia", "deckare", "romantik", "fantasy"]
-    const promiseList = genres.map(async (genre) => await fetchData(`${apiLink}?q=${genre}&maxResults=40`))
+    const categories = ["magi", "historia", "deckare", "romantik", "fantasy"]
+    const promiseList = categories.map(async (genre) => await fetchData(`${apiLink}?q=${genre}&maxResults=40`))
     const data = await Promise.all(promiseList)
 
     const books = data.flatMap(books => books.items)
