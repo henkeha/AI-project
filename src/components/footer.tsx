@@ -18,7 +18,7 @@ const Footer = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="body1">&copy; {new Date().getFullYear()} My Awesome App. All Rights Reserved.</Typography>
+          <Typography variant="body1">&copy; {new Date().getFullYear()}</Typography>
         </Container>
       </Box>
     );

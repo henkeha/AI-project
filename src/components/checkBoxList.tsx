@@ -9,18 +9,16 @@ import FormLabel from "@mui/material/FormLabel";
 import { Button } from "@mui/material";
 
 type Props = {
-    labels: string[]
+    labels: string[],
+    checkedItems: CheckedItemsState,
+    setCheckedItems: React.Dispatch<React.SetStateAction<CheckedItemsState>>
 }
 
-type CheckedItemsState = {
+export type CheckedItemsState = {
     [key: string]: boolean;
 };
 
-const checkboxList = ({ labels }: Props) => {
-    const [checkedItems, setCheckedItems] = useState<CheckedItemsState>(
-        labels.reduce((acc, item) => ({ ...acc, [item]: false }), {})
-    );
-
+const checkboxList = ({ labels, checkedItems, setCheckedItems }: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, checked } = event.target;
         setCheckedItems((prevState) => ({
@@ -64,14 +62,14 @@ const checkboxList = ({ labels }: Props) => {
                             />
                         ))}
                     </FormGroup>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClearAll}
-                    sx={{ marginTop: 2 }}
-                >
-                    Clear All
-                </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleClearAll}
+                        sx={{ marginTop: 2 }}
+                    >
+                        Clear All
+                    </Button>
                 </FormControl>
             </Box>
         </Box>
